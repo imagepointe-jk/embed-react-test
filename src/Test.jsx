@@ -38,12 +38,7 @@ export function Test() {
         </p>
       </div>
       <button
-        onClick={() =>
-          window.parent.postMessage({
-            message: "Hello from child",
-            targetOrigin: "*",
-          })
-        }
+        onClick={() => window.parent.postMessage("Hello from child", "*")}
       >
         Send message
       </button>
