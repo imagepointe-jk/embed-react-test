@@ -4,21 +4,16 @@ import viteLogo from "/vite.svg";
 import { Routes, Route, useSearchParams, useLocation } from "react-router-dom";
 
 export function Test() {
-  const [params] = useSearchParams();
-  const location = useLocation();
-  console.log("test param", params.get("test"));
-  console.log("location", location);
+  function handleMessage(e) {
+    if (e.origin !== "https://imagepointe.com") {
+      console.log("received an unwanted message from " + e.origin);
+      return;
+    }
+    console.log(e.data);
+  }
 
   useEffect(() => {
-    const handleMessage = (e) => {
-        if (e.origin === "http://127.0.0.1:5500") {
-            console.log("received");
-        }
-      console.log("the origin is", e.origin);
-      console.log(e.data);
-    };
     window.addEventListener("message", handleMessage);
-    console.log("added event listener");
     return () => {
       window.removeEventListener("message", handleMessage);
       console.log("removed event listener");
@@ -42,6 +37,16 @@ export function Test() {
           Railway.
         </p>
       </div>
+      <button
+        onClick={() =>
+          window.parent.postMessage({
+            message: "Hello from child",
+            targetOrigin: "*",
+          })
+        }
+      >
+        Send message
+      </button>
     </div>
   );
 }
