@@ -1,10 +1,30 @@
+import { useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import { Routes, Route, useSearchParams } from "react-router-dom";
+import { Routes, Route, useSearchParams, useLocation } from "react-router-dom";
 
 export function Test() {
   const [params] = useSearchParams();
-  console.log(params.get("test"));
+  const location = useLocation();
+  console.log("test param", params.get("test"));
+  console.log("location", location);
+
+  useEffect(() => {
+    const handleMessage = (e) => {
+        if (e.origin === "http://127.0.0.1:5500") {
+            console.log("received");
+        }
+      console.log("the origin is", e.origin);
+      console.log(e.data);
+    };
+    window.addEventListener("message", handleMessage);
+    console.log("added event listener");
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      console.log("removed event listener");
+    };
+  }, []);
+
   return (
     <div>
       <div>
