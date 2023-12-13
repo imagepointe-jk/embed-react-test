@@ -4,15 +4,14 @@ import viteLogo from "/vite.svg";
 import { Routes, Route, useSearchParams, useLocation } from "react-router-dom";
 
 export function Test() {
-  function handleMessage(e) {
-    if (e.origin !== "https://imagepointe.com") {
-      console.log("received an unwanted message from " + e.origin);
-      return;
-    }
-    console.log(e.data);
-  }
-
   useEffect(() => {
+    const handleMessage = (e) => {
+      if (e.origin !== "https://imagepointe.com") {
+        console.log("received an unwanted message from " + e.origin);
+        return;
+      }
+      console.log(e.data);
+    };
     window.addEventListener("message", handleMessage);
     return () => {
       window.removeEventListener("message", handleMessage);
