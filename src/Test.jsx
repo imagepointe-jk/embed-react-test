@@ -14,6 +14,7 @@ export function Test() {
         console.log("received an unwanted message from " + e.origin);
         return;
       }
+      console.log("printing message");
       console.log(e.data);
     };
     window.addEventListener("message", handleMessage);
@@ -41,6 +42,7 @@ export function Test() {
         </p>
       </div>
       <button
+        style={{ backgroundColor: "red" }}
         onClick={() => window.parent.postMessage("Hello from child", "*")}
       >
         Send message
