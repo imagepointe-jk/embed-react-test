@@ -6,11 +6,7 @@ import { Routes, Route, useSearchParams, useLocation } from "react-router-dom";
 export function Test() {
   useEffect(() => {
     const handleMessage = (e) => {
-      console.log(
-        `Does ${e.origin} equal https://imagepointe.com?`,
-        e.origin === "https://imagepointe.com"
-      );
-      if (e.origin !== "https://imagepointe.com") {
+      if (e.origin !== "https://www.imagepointe.com") {
         console.log("received an unwanted message from " + e.origin);
         return;
       }
@@ -42,7 +38,7 @@ export function Test() {
         </p>
       </div>
       <button
-        style={{ backgroundColor: "red" }}
+        style={{ backgroundColor: "blue" }}
         onClick={() => window.parent.postMessage("Hello from child", "*")}
       >
         Send message
